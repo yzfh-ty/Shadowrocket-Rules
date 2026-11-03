@@ -1,3 +1,7 @@
+> 如需Clash版本 → [请点击此处](https://github.com/LingJingMaster/Clash-Rules)
+
+---
+
 # 小火箭 Shadowrocket Config
 
 一份开箱即用的 小火箭 Shadowrocket 规则配置
@@ -22,7 +26,8 @@
 |------|----------|----------|
 | 🚀 节点选择 | AI、推送、券商等分组共用的选择入口 | PROXY |
 | 🧱 DNS 防泄露 | BlockHttpDNS 中的已知 HTTPDNS 端点，微信例外提前放行 | REJECT |
-| 🤖 AI 服务 | ChatGPT、Claude、Google AI、Copilot、Grok、OpenRouter、Perplexity，以及列出的苹果智能 / Siri / 搜索相关端点 | 🚀 节点选择 |
+| 🛡️ WebRTC 防泄露 | UDP 3478、5349、19302–19309；中国大陆目标优先使用国内服务 | REJECT |
+| 🤖 AI 服务 | ChatGPT、Claude、Google AI、Copilot、OpenRouter、Perplexity，以及列出的苹果智能 / Siri / 搜索相关端点 | 🚀 节点选择 |
 | 🍏 苹果服务 | 苹果常规服务、iCloud 照片 / 邮箱及列出的 CDN 域名 | DIRECT |
 | 🍎 苹果推送 | `push.apple.com` 及子域名，以及苹果 `17.0.0.0/8` 和官方 APNs IPv6 地址段的 TCP 5223 连接 | 🚀 节点选择 |
 | 🏦 汇丰香港 | 汇丰香港、Reward+ 相关端点 | DIRECT |
@@ -40,6 +45,8 @@ AI 规则优先于通用谷歌、微软及代码托管规则，苹果推送规�
 ## DNS 与规则检查
 
 主 DNS 配置为 Cloudflare DoH，备用为 Google DoH，均带 `#proxy`。直连流量开启系统 DNS；`hijack-dns` 接管列出的公共 DNS 53 端口请求。HTTPDNS 分组只控制规则集列出的端点，不能作为所有 DNS 查询均走代理的保证。
+
+2026-11-03 同步上游 WebRTC 规则：UDP 3478、5349、19302–19309 的中国大陆目标先走「🔒 国内服务」，其余匹配连接交给默认 REJECT 的「🛡️ WebRTC 防泄露」分组。这是按端口和 GEOIP 分流，并不覆盖所有 WebRTC 流量。按上游调整移除了 Grok 的 AI 专用规则，`agent-stores.s3.us-east-1.amazonaws.com` 单独直连，其余 Grok 流量遵循后续常规规则。
 
 2026-10-12 已将配置更新地址、八个自建规则集 URL 和导入链接统一改为 `yzfh-ty/Shadowrocket-Rules`。配置及修改后的 `.list` 文件需要一起发布到该仓库的 `main` 分支，手机才能加载这一版本；本地修改本身不会更新远程内容。
 
