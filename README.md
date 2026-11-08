@@ -1,4 +1,4 @@
-> 如需Clash版本 → [请点击此处](https://github.com/LingJingMaster/Clash-Rules)
+> 如需Clash版本 → [请点击此处](https://github.com/yzfh-ty/Clash-Rules)
 
 ---
 
@@ -43,6 +43,8 @@ AI 规则优先于通用谷歌、微软及代码托管规则，苹果推送规�
 `PROXY` 使用 App 当前代理；“🚀 节点选择”是另一个可切换的分组。“🌍 非中国”和“🐟 漏网之鱼”默认直接选 `PROXY`，不会自动跟随“🚀 节点选择”的切换。
 
 ## DNS 与规则检查
+
+2026-11-08 同步上游：新增 `dm.wo.com.cn` 拒绝规则，优先于国内规则集和最终兜底匹配；保留现有分组、AI 默认策略和苹果推送目标限制。Clash 版本同步使用本 fork 的配置与规则集。
 
 主 DNS 配置为 Cloudflare DoH，备用为 Google DoH，均带 `#proxy`。直连流量开启系统 DNS；`hijack-dns` 接管列出的公共 DNS 53 端口请求。HTTPDNS 分组只控制规则集列出的端点，不能作为所有 DNS 查询均走代理的保证。
 
